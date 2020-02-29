@@ -6,7 +6,7 @@ using UnityEditor.UI;
 public class GameController : MonoBehaviour
 {
     public enum GameState { Day, Night };
-    GameState currentState = GameState.Day;
+    public GameState currentState = GameState.Day;
 
     private GameObject[] dayObjs;
     private GameObject[] nightObjs;
