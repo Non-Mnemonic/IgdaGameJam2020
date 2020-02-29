@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     public float jumpHieght;
     public float moveSpeed;
     public float fallSpeed;
+    public GameObject keyIndicator;
     //private GameObject player;
     private Rigidbody playerRidgidBody;
     private Transform cameraTransform;
@@ -15,6 +16,8 @@ public class PlayerController : MonoBehaviour
     private bool canJump = true;
     [SerializeField]
     private float jumpMovement;
+    private float heightAtJump;
+    private bool hasKey = false;
 
     void Start()
     {
@@ -22,6 +25,7 @@ public class PlayerController : MonoBehaviour
         playerRidgidBody = GetComponent<Rigidbody>();
         cameraTransform = Camera.main.transform;
         movementDirection = Vector3.zero;
+        heightAtJump = playerRidgidBody.transform.position.z;
     }
 
     void Update()
@@ -60,9 +64,10 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetKeyDown("space"))
         {
-            if (playerRidgidBody.transform.position.y < jumpHieght && canJump)
+            if (playerRidgidBody.transform.position.y < jumpHieght +  heightAtJump && canJump)
             {
                 jumpMovement = jumpSpeed;
+                heightAtJump = playerRidgidBody.transform.position.y;
             }            
         }
 
@@ -72,7 +77,7 @@ public class PlayerController : MonoBehaviour
             canJump = false;
         }
 
-        if (playerRidgidBody.transform.position.y >= jumpHieght)
+        if (playerRidgidBody.transform.position.y >= jumpHieght + heightAtJump)
         {
             jumpMovement = -fallSpeed;
             canJump = false;
@@ -86,8 +91,23 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        jumpMovement = 0;
-        canJump = true;
+        if (collision.collider.tag == "Key")
+        {
+            hasKey = true;
+            Destroy(collision.collider.gameObject);
+            Instantiate(keyIndicator, playerRidgidBody.transform);
+        }
+        else if (collision.collider.tag == "Door" && hasKey)
+        {
+            Destroy(collision.collider.gameObject);
+        }
+        else
+        {
+            jumpMovement = 0;
+            canJump = true;
+        }
+
+
     }
     private void OnCollisionStay(Collision collision)
     {
