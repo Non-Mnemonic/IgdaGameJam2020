@@ -4,5 +4,17 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Package test/Dylans_MenuScene.unity
+    guid: 2b9016506a225e0428b4243e35d15a0d
+  - enabled: 1
+    path: Assets/Scenes/Stage1.unity
+    guid: 1fc4d6450460c54428c3e0010fea9dc0
+  - enabled: 1
+    path: Assets/Scenes/Stage2.unity
+    guid: 46a082416d5275842b3d25906cda955e
+  - enabled: 1
+    path: Assets/Scenes/Stage3.unity
+    guid: 77c1fd9d767b55d4c9fe5cc87238e032
   m_configObjects: {}

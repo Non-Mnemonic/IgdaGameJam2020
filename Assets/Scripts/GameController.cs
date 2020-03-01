@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor.UI;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
@@ -25,10 +25,11 @@ public class GameController : MonoBehaviour
 
     }
 
-    public void StateChange()
+    public void Update()
     {
+        float angle = this.gameObject.transform.rotation.eulerAngles.z;
 
-        if (currentState == GameState.Day)
+        if (angle > 0 && angle < 180)
         {
             currentState = GameState.Night;
             foreach (GameObject dayObject in dayObjs)
@@ -41,7 +42,7 @@ public class GameController : MonoBehaviour
             }
         }
 
-        else
+        if (angle > 180)
         {
             currentState = GameState.Day;
             foreach (GameObject dayObject in dayObjs)

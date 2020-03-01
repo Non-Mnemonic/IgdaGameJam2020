@@ -32,7 +32,7 @@ public class DayNightCycle : MonoBehaviour
         if (timer > time)
         {
             
-            this.gameObject.GetComponent<GameController>().StateChange();
+            //this.gameObject.GetComponent<GameController>().StateChange();
             timer = timer - time;
             loops += 1;
             if (loops >= 2)
