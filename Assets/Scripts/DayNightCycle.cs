@@ -10,8 +10,8 @@ public class DayNightCycle : MonoBehaviour
     private float time;
     private float timer = 0.0f;
 
-
-    void Start()
+    private int loops = 0;
+    public void Awake()
     {
         //create default timer for 3 mins
         time = 180f / speed;
@@ -23,10 +23,23 @@ public class DayNightCycle : MonoBehaviour
         transform.RotateAround(Vector3.zero, Vector3.forward, speed*0.004f);
         transform.LookAt(Vector3.zero);
 
+        GameObject sunNMoon = GameObject.Find("UITimeDisplay");
+
+        Vector3 target = sunNMoon.transform.position;
+
+        sunNMoon.transform.RotateAround(target, Vector3.back, speed * 0.004f);
+
         if (timer > time)
         {
+            
             this.gameObject.GetComponent<GameController>().StateChange();
             timer = timer - time;
+            loops += 1;
+            if (loops >= 2)
+            {
+                loops = 0;
+                this.gameObject.GetComponent<Restart>().restartDay();
+            }
         }
         
     }
